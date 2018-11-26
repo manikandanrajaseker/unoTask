@@ -174,6 +174,12 @@ function droppedCardView(dropNumber,dropColor){
         printnumber="p2";
     }else if(dropNumber=="+4"){
         printnumber="p4";
+    }else if(dropNumber=="p4"){
+        printnumber=dropNumber; 
+        dropNumber="+4";
+    }else if(dropNumber=="p2"){
+        printnumber=dropNumber; 
+        dropNumber="+2";
     }else{
         printnumber=dropNumber; 
     }
