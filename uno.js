@@ -126,7 +126,6 @@ function removeCardFromView(index,number,color){
                 drawCard("computerCardView");
                 drawCard("computerCardView");
                 drawCard("computerCardView");
-                drawCard("summa");
             }
         }
         if(color=="black"){
