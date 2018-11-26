@@ -1,0 +1,103 @@
+<html>
+<head>
+<link href="uno.css" rel="stylesheet">
+<script src="uno.js"></script>
+</head>
+<body onload="execute()">
+    <div class="unoBoard">
+
+	<div class="box game-details-box" style="Width:100%;">
+	<div class="box-top" style="Width:100%;">
+                        <h4>UNO</h4>
+                    </div>
+                    <div id="entryForm">
+                    <div class="entryForm" >
+                      <input type="text" placeholder="Enter Your Name">
+                      <button onclick="startGame()">Start Game</button>
+
+                    </div></div>
+
+					 <div class="box-main" id="gameView">
+              <div class="row" style="width:100%;height:90%;">
+<div class="cpuCardView" id="computerCardView" style="width:60%;height:160px;display: flex;">
+    
+</div>
+
+<div class="row" style="width:100%;">
+    <button class="buttonUNO" onclick="uno()"><b>UNO</b></button>
+    <div id="droppedCard" style=" font-size: 30px;height: 20%;    margin-top: 70px;margin-left: -50px;">
+    <div class="card black" >
+        <span class="inner" >
+          <span class="mark"></span>
+        </span>
+      </div>
+    </div>
+    <div class="card blue" onclick="drawCard('playerCardView')" style="float: right;font-size: 30px;height: 20%;    margin-top: -90px;">
+        <span class="inner" >
+          <span class="mark">DRAW</span>
+        </span>
+      </div>
+</div>
+
+
+
+<div class="playerCardView" id="playerCardView"style="width:60%;height:160px;display: flex;float:right;position:relative;bottom:0%;right: 0%;">
+    
+</div>
+</div>
+	</div>  
+	
+	</div>
+	
+	
+</div>
+
+<div class="box game-details-box">
+                    <div class="box-top">
+                        <h4>Game Details</h4>
+                    </div>
+                   
+                    <div class="box-main">
+                        <div class="row">
+                         <div class="col-md-2">
+                                <img class="media-object" itemprop="image" src="https://gamers2play.com/games/images/uno-online.jpg" alt="UNO Online" height="100" width="100">
+                            </div>
+                            <div class="col-md-10">
+                                <p class="game-description">Use strategy in this UNO Online card game where you try to get rid of your cards. Compete with players with artificial intelligence. Have fun! <br><br>
+</p><hr>
+
+                                <p><strong><span style="font-size:17px;">GAMEPLAY</span></strong><br><br>
+Your basic aim is getting rid of all cards before the other players. Every deck consists of 108 cards, of which there are 19 of each color (red, green, blue, and yellow), each color having two of each rank except zero. The ranks in each color are 0 through 9, "Skip", "Draw Two", and "Reverse". In New-Card UNO, there are skraw two cards, skreverse cards, Revaw-Two cards and more. The remaining eight cards are "Wild" and "Wild Draw Four", the deck having four of each. When you have only one card left, don't forget to hit the UNO button! <br><br>
+P.S. UNO is a registered trademark by Mattel Inc.. Don't forget to buy the physical game if you like this online version!<br><br>
+</p>
+                            </div>
+                        </div>
+                         <hr>
+                        <div class="row">
+                            <div class="col-md-10">
+							<p><strong><span style="font-size:19px;">RULES</span></strong><br><br>
+<strong><span style="font-size:17px;">Setup:</span></strong> The game is for 2-10 players, ages 7 and over. Every player starts with seven cards, and they are dealt face down. The rest of the cards are placed in a Draw Pile face down. Next to the pile a space should be designated for a Discard Pile. The top card should be placed in the Discard Pile, and the game begins!<br><br>
+Game Play: The first player is normally the player to the left of the dealer (you can also choose the youngest player) and gameplay usually follows a clockwise direction. Every player views his/her cards and tries to match the card in the Discard Pile.
+
+You have to match either by the number, color, or the symbol/Action. For instance, if the Discard Pile has a red card that is an 8 you have to place either a red card or a card with an 8 on it. You can also play a Wild card (which can alter current color in play).
+
+If the player has no matches or they choose not to play any of their cards even though they might have a match, they must draw a card from the Draw pile. If that card can be played, play it. Otherwise, the game moves on to the next person in turn. You can also play a Wild card, or a Wild Draw Four card on your turn.<br><br>
+<strong><span style="font-size:17px;">Action Cards:</span></strong>
+Action Cards: Besides the number cards, there are several other cards that help mix up the game. These are called Action or Symbol cards.
+
+uno action cards
+
+<br><br><strong><span style="font-size:17px;">Reverse(R)</span></strong> – If going clockwise, switch to counterclockwise or vice versa.
+<br><br><strong><span style="font-size:17px;">Skip(S)</span></strong> – When a player places this card, the next player has to skip their turn. If turned up at the beginning, the first player loses his/her turn.
+<br><br><strong><span style="font-size:17px;">Draw Two(+2)</span></strong> – When a person places this card, the next player will have to pick up two cards and forfeit his/her turn.
+<br><br><strong><span style="font-size:17px;">Wild(W):</span></strong> – This card represents all four colors, and can be placed on any card. The player has to state which color it will represent for the next player. It can be played regardless of whether another card is available.
+<br><br><strong><span style="font-size:17px;">Wild Draw Four(+4)</span></strong> – This acts just like the wild card except that the next player also has to draw four cards as well as forfeit his/her turn. With this card, you must have no other alternative cards to play that matches the color of the card previously played. If you play this card illegally, you may be challenged by the other player to show your hand to him/her. If guilty, you need to draw 4 cards. If not, the challenger needs to draw 6 cards instead.<br><br>
+For four players (two-partner teams), players sit opposite their partners, and play until one of either partner goes out with one Uno card left. Scoring for the winning team is done by adding up all the points from opposing partner’s hands.<br><br>
+</p>
+                            </div>
+                        </div>
+                    </div>
+					
+                    </div>
+</body>
+</html>

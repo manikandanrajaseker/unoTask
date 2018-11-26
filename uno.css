@@ -1,0 +1,329 @@
+.unoBoard{
+	width:100%;
+	height:100%;
+	display: flex;
+}
+
+
+.centerBoard{
+	width:70%;
+	height:100%;
+}
+.box .box-top h1, .box .box-top h2, .box .box-top h3, .box .box-top h4, .box .box-top h5, .box .box-top h6 {
+    padding: 0;
+    margin: 0;
+    font-size: 18px;
+    color: #FFF;
+}
+h1, h2, h3, h4, h5, h6, p {
+    word-wrap: break-word;
+    word-break: break-word;
+}
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 500;
+    line-height: 1.1;
+    color: #fff;
+}
+.box .box-footer, .box .box-main {
+    background-color: #174076;
+    background-color: rgba(0,0,0,.5);
+    padding-left: 20px;
+}
+.row {
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+*, :after, :before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.box .box-top {
+    padding: 15px 10px;
+    background: #009ec3;
+    background: linear-gradient(to bottom,#009ec3 0,#1e5799 99%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#009ec3', endColorstr='#1e5799', GradientType=0 );
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+body{
+background: linear-gradient(135deg,#3c89ed 25%,transparent 25%) -50px 0,linear-gradient(225deg,#3c89ed 25%,transparent 25%) -50px 0,linear-gradient(315deg,#3c89ed 25%,transparent 25%),linear-gradient(45deg,#3c89ed 25%,transparent 25%);
+    background-size: 100px 100px;
+    background-color: #2e81ec;
+    color: #fff;
+}
+::placeholder {
+  color: blue;
+}
+
+.card {
+  width: 15%;
+  height: 100%;
+  cursor: pointer;
+  float: left;
+  background: #fff;
+  border-radius: 5px;
+  display: table;
+  box-sizing: border-box;
+  padding: 5px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 230%;
+  text-shadow: 1px 1px 0 #000000, -1px -1px 0 #000000, -1px 1px 0 #000000, 1px -1px 0 #000000, 1px 0 0 #000000, -1px 0 0 #000000, 0 -1px 0 #000000, 0 1px 0 #000000, 2px 3px 0 #000000;
+  box-shadow: 0 0 10px #aaaaaa;
+  text-align: center;
+  position: relative;
+  margin-left: -5%;
+}
+#droppedCard{
+  cursor: unset;
+}
+.cpuCardView{
+  margin-left:5%;
+}
+.entryForm{
+  background: transparent;
+    width: 300px;
+    height: 200px;
+    border: 2px solid;
+    position: relative;
+    border-color: #1367d4;
+    top: 170px;;
+    left: 38%;
+}
+input{
+  width:80%;
+  margin-left: 10%;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  background: transparent;
+  border: none;
+  padding:5px;
+  font-size: 30px;
+  color: white;
+  text-align: center;
+}
+#gameView{
+  display: none;
+}
+.buttonUNO{
+  float: left;
+  position: relative;
+  left: -300px;
+    bottom: -115px;
+height:150px;
+width:150px;
+border-radius: 50%;
+font-size: 45px;  
+}
+button{
+  margin-top: 20px;
+  margin-left: 35%;
+  color:rgb(13, 54, 235);
+  background: rgb(161, 204, 240);
+  border:none;
+  border-radius: 3px;
+}
+.card .inner{
+  display:table-cell;
+  vertical-align:middle;
+  border-radius:5px;
+  overflow:hidden;
+}
+#cards{
+  width: 60%;
+}
+.card .mark{
+  display:inline-block;
+  vertical-align:middle;
+  background:#ffffff;
+  margin:auto;
+  padding: 0 30%;
+  border-radius:100px 60px / 120px 60px;
+  line-height:1.4;
+}
+
+.card:before,
+.card:after{
+  display:inline-block;
+  position:absolute;
+  line-height:0;
+  font-size:20px;
+  color:#ffffff;
+  text-shadow:
+     1px  1px 0 #000000,
+    -1px -1px 0 #000000,
+    -1px  1px 0 #000000,
+     1px -1px 0 #000000,
+     1px  0   0 #000000,
+    -1px  0   0 #000000,
+     0   -1px 0 #000000,
+     0    1px 0 #000000,
+     2px  2px 0 #000000;
+}
+
+.card:before{
+  top:15px;
+  left:10px;
+}
+.card:after{
+  bottom:15px;
+  right:10px;
+  transform:rotate(180deg)
+}
+
+.card.blue{
+  color:#0063B3;
+}
+
+.card.blue .inner{
+  background:#0063B3;
+}
+
+.card.green{
+  color:#18A849;
+}
+
+.card.green .inner{
+  background:#18A849;
+}
+
+.card.red{
+  color:#C72A18;
+}
+
+.card.red .inner{
+  background:#C72A18;
+}
+
+.card.yellow{
+  color:#E6CA1E;
+}
+.card.black{
+  color:black;
+}
+.card.black .inner{
+  background:black;
+}
+
+.card.yellow .inner{
+  background:#E6CA1E;
+}
+
+.card.num-0:before,
+.card.num-0:after{
+  content:"0";
+}
+
+.card.num-1:before,
+.card.num-1:after{
+  content:"1";
+}
+
+.card.num-2:before,
+.card.num-2:after{
+  content:"2";
+}
+
+.card.num-3:before,
+.card.num-3:after{
+  content:"3";
+}
+
+.card.num-4:before,
+.card.num-4:after{
+  content:"4";
+}
+
+.card.num-5:before,
+.card.num-5:after{
+  content:"5";
+}
+
+.card.num-6:before,
+.card.num-6:after{
+  content:"6";
+}
+
+.card.num-7:before,
+.card.num-7:after{
+  content:"7";
+}
+
+.card.num-8:before,
+.card.num-8:after{
+  content:"8";
+}
+
+.card.num-9:before,
+.card.num-9:after{
+  content:"9";
+}
+.card.num-W:before,
+.card.num-W:after{
+  content:"W";
+}
+.card.num-S:before,
+.card.num-S:after{
+  content:"S";
+}
+.card.num-R:before,
+.card.num-R:after{
+  content:"R";
+}
+.card.num-p2:before,
+.card.num-p2:after{
+  content:"+2";
+}
+.card.num-p4:before,
+.card.num-p4:after{
+  content:"+4";
+}
+
+
+.card.num-6.blue .mark:after,
+.card.num-9.blue .mark:after{
+  background:#0063B3;
+}
+.card.num-6.green .mark:after,
+.card.num-9.green .mark:after{
+  background:#18A849;
+}
+.card.num-6.red .mark:after,
+.card.num-9.red .mark:after{
+  background:#C72A18;
+}
+.card.num-6.black .mark:after,
+.card.num-9.black .mark:after{
+  background:black;
+}
+.card.num-6.yellow .mark:after,
+.card.num-9.yellow .mark:after{
+  background:#E6CA1E;
+}
+.card.num-6.draw .mark:after,
+.card.num-9.draw .mark:after{
+  background:gray;
+}
+
+.button {
+        background-color: #0063B3;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 25px;
+    margin: 4px 2px;
+    cursor: pointer;
+    Border-radius: 25px;
+    float: left;
+    position: relative;
+    left: -86%;
+    top: 48%;
+}
+.playerCardView .card:hover{
+  z-index: 5;
+}
