@@ -3,8 +3,6 @@
 	height:100%;
 	display: flex;
 }
-
-
 .centerBoard{
 	width:70%;
 	height:100%;
@@ -173,7 +171,17 @@ button{
   right:10px;
   transform:rotate(180deg)
 }
-
+.card.com:before{
+  top:15px;
+  font-size: 0;
+  left:10px;
+}
+.card.com:after{
+  bottom:15px;
+  right:10px;
+  font-size: 0;
+  transform:rotate(180deg)
+}
 .card.blue{
   color:#0063B3;
 }
@@ -326,4 +334,11 @@ button{
 }
 .playerCardView .card:hover{
   z-index: 5;
+  width:120px;
+}
+#SkipYourTurn:hover{
+  background: #C72A18;
+}
+#SkipYourTurn:active{
+  background: #E6CA1E;
 }

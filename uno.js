@@ -9,12 +9,21 @@ var changedColor="";
 var gameTurn="player";
 var wIndex="";
 var playerName="";
+var drawnCard="";
+var unoClick=false;
 function startGame(){
     playerName=document.getElementById('playerName').value;
     console.log(playerName);
+    if(playerName.length>2){
     document.getElementById('entryForm').innerHTML="";
     document.getElementById('gameView').style.display='block';
-    
+    document.getElementById("computerCardView").style.pointerEvents = 'none';
+    document.getElementById("SkipYourTurn").style.pointerEvents = 'none';
+    document.getElementById("droppedCard").style.pointerEvents = 'none';
+}else{
+    alert("Name should contain atleast more then 2");
+}
+
 }
 function drawCard(byWhom){
     
@@ -38,9 +47,9 @@ if(byWhom=="playerCardView"){
 playerCardCount++;
 }else if(byWhom=="computerCardView"){
     var variableFunctionCall="removeCardFromView('computerCard"+computerCardCount+"','"+changedRand+"','"+randColor+"')";
-    document.getElementById('computerCardView').innerHTML+='<div class="card num-'+randamNumber+' '+randColor+'   '+computerCardCount+'" id="computerCard'+computerCardCount+'"   alt="'+variableFunctionCall+'"><span class="inner"><span class="mark">'+changedRand+'</span></span></div>';
+    //document.getElementById('computerCardView').innerHTML+='<div class="card num-'+randamNumber+' '+randColor+'   '+computerCardCount+'" id="computerCard'+computerCardCount+'"   alt="'+variableFunctionCall+'"><span class="inner"><span class="mark">'+changedRand+'</span></span></div>';
+    document.getElementById('computerCardView').innerHTML+='<div class="card num-'+randamNumber+' '+randColor+'    '+computerCardCount+' com" id="computerCard'+computerCardCount+'"   alt="'+variableFunctionCall+'" style="font-size=0;"><img src="download.png" width=100% height=100%><span class="inner" style="width=0;font-size=0;"><span class="mark"style="width:0;padding: 0;">'+changedRand+'</span></span></div>';
     computerCardCount++;
-   
 }
 else if(byWhom=="openCard"){
     randColor = colorsForCards[(Math.random() * colorsForCards.length-1) | 0];
@@ -49,7 +58,8 @@ else if(byWhom=="openCard"){
 document.getElementById('droppedCard').innerHTML='<div class="card num-'+randamNumber+' '+randColor+'"><span class="inner"><span class="mark">'+changedRand+'</span></span></div>';
 }
  if(byWhom=="computerCardView"){
-     if(computerCardCount>=7){
+     if(computerCardCount>7){
+        if(drawnCard!="+2"||drawnCard!="+4"||drawnCard!="p2"||drawnCard!="p4")
          if(randamNumber==currentOpenCardNumber||randColor==currentOpenCardColor||randColor=="black"){
              gameTurn="computer";
              document.getElementById("playerCardView").style.pointerEvents = 'none';
@@ -62,9 +72,11 @@ document.getElementById('droppedCard').innerHTML='<div class="card num-'+randamN
      
     if(playerCardCount>7){
         debugger;
+        if(drawCard!="+4"||drawnCard!="+2"||drawnCard!="+4"||drawnCard!="p2"||drawnCard!="p4")
         if(randamNumber==currentOpenCardNumber||randColor==currentOpenCardColor||randColor=="black"){
             gameTurn="player";
             document.getElementById("playerCardView").style.pointerEvents = 'auto';
+            document.getElementById("SkipYourTurn").style.pointerEvents = 'auto';
         }else{
            gameTurn="computer";
            document.getElementById("playerCardView").style.pointerEvents = 'nome';
@@ -80,16 +92,10 @@ function computerMove(){
     var count =document.getElementById("computerCardView").childElementCount;
     var loopcount=0;
     for(var i=1;i<=count;i++){
-        console.log(document.getElementById("computerCardView").childElementCount);
-        console.log(document.getElementById("computerCardView").childNodes[i].className);
-        console.log(document.getElementById("computerCardView").childNodes[i].className.slice(9,11));
         computerCurrentCardNumber=document.getElementById("computerCardView").childNodes[i].className.slice(9,11);
         computerCurrentCardColor=document.getElementById("computerCardView").childNodes[i].className.slice(11,18);
         computerCurrentCardId=document.getElementsByClassName(document.getElementById("computerCardView").childNodes[i].className)[0].id;
-        console.log(document.getElementById("computerCardView").childNodes[i].className.slice(11,18));
-        console.log(document.getElementsByClassName(document.getElementById("computerCardView").childNodes[i].className)[0].id);
         if(computerCurrentCardNumber.trim()==currentOpenCardNumber.trim()||computerCurrentCardColor.trim()==currentOpenCardColor||computerCurrentCardColor.trim()=="black"){
-            console.log(computerCurrentCardNumber,computerCurrentCardColor,computerCurrentCardId);
             removeCardFromView(computerCurrentCardId.trim(),computerCurrentCardNumber.trim(),computerCurrentCardColor.trim());
             i=count+1;
             break;
@@ -100,11 +106,12 @@ function computerMove(){
         drawCard("computerCardView");
     }
 }
+gameTurn="player";
+document.getElementById("playerCardView").style.pointerEvents = 'auto';
+
 }
 
 function execute(){
-    document.getElementById('entryForm').innerHTML="";
-    document.getElementById('gameView').style.display='block';
     drawCard("openCard");
     if(playerCardCount==0){
 for(var i=0;i<7;i++){
@@ -119,6 +126,7 @@ for(var i=0;i<7;i++){
 }
 function removeCardFromView(index,number,color){
     debugger;
+    drawnCard=number;
     if(currentOpenCardNumber=="p2"){
         currentOpenCardNumber="+2"
     }else if(currentOpenCardNumber=="p4"){
@@ -130,30 +138,7 @@ function removeCardFromView(index,number,color){
     }
     if(currentOpenCardColor==color||currentOpenCardNumber==number||color=="black"){
         
-        if(number=="+2"){
-            if(gameTurn=="computer"){
-                drawCard("playerCardView");
-                drawCard("playerCardView");
-            }
-            else{ 
-                drawCard("computerCardView");
-                drawCard("computerCardView");
-            }
-            
-        }else if(number=="+4"){
-            if(gameTurn=="computer"){
-                drawCard("playerCardView");
-                drawCard("playerCardView");
-                drawCard("playerCardView");
-                drawCard("playerCardView");
-            }
-            else{
-                drawCard("computerCardView");
-                drawCard("computerCardView");
-                drawCard("computerCardView");
-                drawCard("computerCardView");
-            }
-        }
+        
         if(color=="black"){
             wIndex=number;
             if(gameTurn=="player"){
@@ -172,12 +157,35 @@ function removeCardFromView(index,number,color){
             var remove=document.getElementById(index);
             remove.parentNode.removeChild(remove);
             }
-        
+            if(number=="+2"){
+                if(gameTurn=="computer"){
+                    drawCard("playerCardView");
+                    drawCard("playerCardView");
+                }
+                else{ 
+                    drawCard("computerCardView");
+                    drawCard("computerCardView");
+                }
+                
+            }else if(number=="+4"){
+                if(gameTurn=="computer"){
+                    drawCard("playerCardView");
+                    drawCard("playerCardView");
+                    drawCard("playerCardView");
+                    drawCard("playerCardView");
+                }
+                else{
+                    drawCard("computerCardView");
+                    drawCard("computerCardView");
+                    drawCard("computerCardView");
+                    drawCard("computerCardView");
+                }
+            }
         if(number=="S"||number=="R"||number=="+2"||number=="+4"){
                 if(gameTurn=="computer"){
                     gameTurn="computer";
                     document.getElementById("playerCardView").style.pointerEvents = 'none';
-        computerMove();
+                    computerMove();
                 }else{
                     gameTurn="player";
                     document.getElementById("playerCardView").style.pointerEvents = 'auto';
@@ -186,18 +194,45 @@ function removeCardFromView(index,number,color){
                 if(gameTurn=="computer"){
                     gameTurn="player";
                     document.getElementById("playerCardView").style.pointerEvents = 'auto';
-        }else{
-            gameTurn="computer";
-            document.getElementById("playerCardView").style.pointerEvents = 'none';
-        computerMove();
+                }else{
+                    gameTurn="computer";
+                    document.getElementById("playerCardView").style.pointerEvents = 'none';
+                    computerMove();
         }
         }else if(number=="W"&&gameTurn=="computer"){
                     document.getElementById("playerCardView").style.pointerEvents = 'auto';
                     gameTurn="player";
         }
+        if(document.getElementById("playerCardView").childElementCount==1&&unoClick!=true&&gameTurn=="player"){
+            drawCard("playerCardView");
+            drawCard("playerCardView");
+        }
+        
+        if(document.getElementById("playerCardView").childElementCount==0){
+    document.getElementById('entryForm').style.display="block";         
+    document.getElementById('gameView').style.display="none";            
+    document.getElementById('entryForm').innerHTML="<div class='entryForm' style='justify-content: center;align-items: center;padding-left: 80px;padding-top: 50px;'> <h1>You Won!!! "+playerName+"</h1></div>";
+        }else if(document.getElementById("computerCardView").childElementCount==0){
+    document.getElementById('gameView').style.display="none";   
+    document.getElementById('entryForm').style.display="block";         
+    document.getElementById('entryForm').innerHTML="<div class='entryForm' style='justify-content: center;display:auto;align-items: center;padding-left: 80px;padding-top: 50px;'> <h1>Computer Won</h1></div>";
+        }
+        if(gameTurn=="player")
+        unoClick=false;
+        document.getElementById("unoButton").style.pointerEvents = 'auto';
     }
+    
 }
+function uno(){
+    unoClick=true;
+}
+function skipYourTurn(){
+    document.getElementById("playerCardView").style.pointerEvents = 'none';
+    document.getElementById("SkipYourTurn").style.pointerEvents = 'none';
+    gameTurn="computer";
+    computerMove();
 
+}
 function changeDrawColor(){
     var e = document.getElementById("colorSelected");
     changedColor = e.options[e.selectedIndex].value;
@@ -218,6 +253,11 @@ wIndex="";
 }
 function droppedCardView(dropNumber,dropColor){
     var printnumber="";
+    if(dropNumber=="+2"){
+        printnumber="p2";
+    }else if(dropNumber=="+4"){
+        printnumber="p4";
+    }
     if(dropNumber=="P2"){
         dropNumber="+2";
     }else if(dropNumber=="p4"){
@@ -225,11 +265,7 @@ function droppedCardView(dropNumber,dropColor){
     }else{
         printnumber=dropNumber; 
     }
-    if(dropNumber=="+2"){
-        printnumber="p2";
-    }else if(dropNumber=="+4"){
-        printnumber="p4";
-    }
+    
     currentOpenCardNumber=printnumber;
     currentOpenCardColor=dropColor ;
     document.getElementById('droppedCard').innerHTML='<div class="card num-'+printnumber+' '+dropColor+'"><span class="inner"><span class="mark">'+dropNumber+'</span></span></div>';
