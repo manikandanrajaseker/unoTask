@@ -7,6 +7,11 @@
 	width:70%;
 	height:100%;
 }
+a{
+  margin-top: 0px;
+  text-decoration: none;
+  color: white;
+}
 .box .box-top h1, .box .box-top h2, .box .box-top h3, .box .box-top h4, .box .box-top h5, .box .box-top h6 {
     padding: 0;
     margin: 0;

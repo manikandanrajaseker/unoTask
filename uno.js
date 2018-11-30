@@ -10,23 +10,28 @@ var gameTurn="player";
 var wIndex="";
 var playerName="";
 var drawnCard="";
+var computerScore=0;
+var playerScore=0;
 var unoClick=false;
+var sec = 60;
+var min =1;
 function startGame(){
-    playerName=document.getElementById('playerName').value;
-    console.log(playerName);
+    playerName=(document.getElementById('playerName').value).trim();
     if(playerName.length>2){
+        execute();
     document.getElementById('entryForm').innerHTML="";
     document.getElementById('gameView').style.display='block';
     document.getElementById("computerCardView").style.pointerEvents = 'none';
     document.getElementById("SkipYourTurn").style.pointerEvents = 'none';
     document.getElementById("droppedCard").style.pointerEvents = 'none';
+    onTimer();
 }else{
-    alert("Name should contain atleast more then 2");
+    alert("Name should contain atleast more then 2 letters");
 }
 
 }
+
 function drawCard(byWhom){
-    
 var randamNumber = numbersInCard[(Math.random() * numbersInCard.length) | 0];
 var randColor = colorsForCards[(Math.random() * colorsForCards.length-1) | 0];
 var changedRand;
@@ -47,7 +52,6 @@ if(byWhom=="playerCardView"){
 playerCardCount++;
 }else if(byWhom=="computerCardView"){
     var variableFunctionCall="removeCardFromView('computerCard"+computerCardCount+"','"+changedRand+"','"+randColor+"')";
-    //document.getElementById('computerCardView').innerHTML+='<div class="card num-'+randamNumber+' '+randColor+'   '+computerCardCount+'" id="computerCard'+computerCardCount+'"   alt="'+variableFunctionCall+'"><span class="inner"><span class="mark">'+changedRand+'</span></span></div>';
     document.getElementById('computerCardView').innerHTML+='<div class="card num-'+randamNumber+' '+randColor+'    '+computerCardCount+' com" id="computerCard'+computerCardCount+'"   alt="'+variableFunctionCall+'" style="font-size=0;"><img src="download.png" width=100% height=100%><span class="inner" style="width=0;font-size=0;"><span class="mark"style="width:0;padding: 0;">'+changedRand+'</span></span></div>';
     computerCardCount++;
 }
@@ -59,7 +63,7 @@ document.getElementById('droppedCard').innerHTML='<div class="card num-'+randamN
 }
  if(byWhom=="computerCardView"){
      if(computerCardCount>7){
-        if(drawnCard!="+2"||drawnCard!="+4"||drawnCard!="p2"||drawnCard!="p4")
+        if(drawnCard!="+2"||drawnCard!="+4")
          if(randamNumber==currentOpenCardNumber||randColor==currentOpenCardColor||randColor=="black"){
              gameTurn="computer";
              document.getElementById("playerCardView").style.pointerEvents = 'none';
@@ -71,8 +75,7 @@ document.getElementById('droppedCard').innerHTML='<div class="card num-'+randamN
  }else if(byWhom=="playerCardView"){
      
     if(playerCardCount>7){
-        debugger;
-        if(drawCard!="+4"||drawnCard!="+2"||drawnCard!="+4"||drawnCard!="p2"||drawnCard!="p4")
+        if(drawCard!="+4"||drawnCard!="+2"||drawCard!="p4"||drawnCard!="p2")
         if(randamNumber==currentOpenCardNumber||randColor==currentOpenCardColor||randColor=="black"){
             gameTurn="player";
             document.getElementById("playerCardView").style.pointerEvents = 'auto';
@@ -80,23 +83,25 @@ document.getElementById('droppedCard').innerHTML='<div class="card num-'+randamN
         }else{
            gameTurn="computer";
            document.getElementById("playerCardView").style.pointerEvents = 'nome';
-           computerMove();
+           setTimeout(computerMove,3000);
         }
     }
  }
 }
 
 function computerMove(){
-    debugger;
     if(gameTurn=="computer"){
     var count =document.getElementById("computerCardView").childElementCount;
+    if(count==2){
+        alert("computer has said UNO");
+    }
     var loopcount=0;
     for(var i=1;i<=count;i++){
         computerCurrentCardNumber=document.getElementById("computerCardView").childNodes[i].className.slice(9,11);
         computerCurrentCardColor=document.getElementById("computerCardView").childNodes[i].className.slice(11,18);
         computerCurrentCardId=document.getElementsByClassName(document.getElementById("computerCardView").childNodes[i].className)[0].id;
         if(computerCurrentCardNumber.trim()==currentOpenCardNumber.trim()||computerCurrentCardColor.trim()==currentOpenCardColor||computerCurrentCardColor.trim()=="black"){
-            removeCardFromView(computerCurrentCardId.trim(),computerCurrentCardNumber.trim(),computerCurrentCardColor.trim());
+            setTimeout(removeCardFromView(computerCurrentCardId.trim(),computerCurrentCardNumber.trim(),computerCurrentCardColor.trim()), 10000);
             i=count+1;
             break;
         }
@@ -104,11 +109,9 @@ function computerMove(){
     }
     if(loopcount==count){
         drawCard("computerCardView");
-    }
-}
+    }}
 gameTurn="player";
 document.getElementById("playerCardView").style.pointerEvents = 'auto';
-
 }
 
 function execute(){
@@ -125,8 +128,6 @@ for(var i=0;i<7;i++){
     }
 }
 function removeCardFromView(index,number,color){
-    debugger;
-    drawnCard=number;
     if(currentOpenCardNumber=="p2"){
         currentOpenCardNumber="+2"
     }else if(currentOpenCardNumber=="p4"){
@@ -136,9 +137,8 @@ function removeCardFromView(index,number,color){
     }else if(number=="p4"){
         number="+4";
     }
-    if(currentOpenCardColor==color||currentOpenCardNumber==number||color=="black"){
-        
-        
+    if((currentOpenCardColor==color||currentOpenCardNumber==number||color=="black")&&document.getElementById("playerCardView").childElementCount!=0&&document.getElementById("computerCardView").childElementCount!=0){
+        drawnCard=number;
         if(color=="black"){
             wIndex=number;
             if(gameTurn=="player"){
@@ -185,7 +185,7 @@ function removeCardFromView(index,number,color){
                 if(gameTurn=="computer"){
                     gameTurn="computer";
                     document.getElementById("playerCardView").style.pointerEvents = 'none';
-                    computerMove();
+                    setTimeout(computerMove,3000);
                 }else{
                     gameTurn="player";
                     document.getElementById("playerCardView").style.pointerEvents = 'auto';
@@ -197,7 +197,7 @@ function removeCardFromView(index,number,color){
                 }else{
                     gameTurn="computer";
                     document.getElementById("playerCardView").style.pointerEvents = 'none';
-                    computerMove();
+                    setTimeout(computerMove,3000);
         }
         }else if(number=="W"&&gameTurn=="computer"){
                     document.getElementById("playerCardView").style.pointerEvents = 'auto';
@@ -209,29 +209,200 @@ function removeCardFromView(index,number,color){
         }
         
         if(document.getElementById("playerCardView").childElementCount==0){
+    calculateScore();  
     document.getElementById('entryForm').style.display="block";         
-    document.getElementById('gameView').style.display="none";            
-    document.getElementById('entryForm').innerHTML="<div class='entryForm' style='justify-content: center;align-items: center;padding-left: 80px;padding-top: 50px;'> <h1>You Won!!! "+playerName+"</h1></div>";
-        }else if(document.getElementById("computerCardView").childElementCount==0){
+    document.getElementById('gameView').style.display="none";       
+    document.getElementById('entryForm').innerHTML='<div id="entryForm" style="display: block;border-color: transparent;"><div class="entryForm" style=" justify-content: center;border: none;align-items: center; width: 80%;top: 50px;left: 10%;height: 60%;"><div class="headdingWinner" style="width: 100%;height: 25%;font-size: 45px;text-align: center;padding: 15px;background: #174075;color: white;border-top-left-radius: 5px;border-top-right-radius: 5px;"><b>UNO WINNER</b></div><div class="winnerName" style="width: 100%;height: 20%;font-size: 40px;color: white;background: #174075;text-align: center;">'+playerName+'</div><div class="scoreDetails" style="background: #174075;width:100%;padding-left:5%;font-size:25px;"><div class="scoreDetailsHeadding" style="font-size: 45px;">Score Details</div><div class="scoreDetailsBody" style="font-size: 15px;padding-left: 50px;"><div class="scoreDetailsBody" style="font-size: 15px;padding-left: 130px;"><div style="display: flex;"><h1 style="width:50%;">Player Name</h1><h1 style="width:50%;">Players Score</h1></div><div style="display: flex;"><h2 style="width:50%;">COMPUTER</h2><h2 style="width:50%;">'+computerScore+'</h2></div><div style="display: flex;"><h2 style="width:50%;">'+playerName+'</h2><h2 style="width:50%;">'+playerScore+'</h2></div></div><div class="restartGameButton" ><button onclick="restartGame()" style="margin-bottom: 20px;font-size: 40px;margin-left:300px;">Restart Game</button></div></div></div></div></div>';
+    }else if(document.getElementById("computerCardView").childElementCount==0){
+    calculateScore();  
     document.getElementById('gameView').style.display="none";   
-    document.getElementById('entryForm').style.display="block";         
-    document.getElementById('entryForm').innerHTML="<div class='entryForm' style='justify-content: center;display:auto;align-items: center;padding-left: 80px;padding-top: 50px;'> <h1>Computer Won</h1></div>";
-        }
+        document.getElementById('entryForm').style.display="block";         
+      document.getElementById('entryForm').innerHTML='<div id="entryForm" style="display: block;border-color: transparent;"><div class="entryForm" style=" justify-content: center;border: none;align-items: center; width: 80%;top: 50px;left: 10%;height: 60%;"><div class="headdingWinner" style="width: 100%;height: 25%;font-size: 45px;text-align: center;padding: 15px;background: #174075;color: white;border-top-left-radius: 5px;border-top-right-radius: 5px;"><b>UNO WINNER</b></div><div class="winnerName" style="width: 100%;height: 20%;font-size: 40px;color: white;background: #174075;text-align: center;">Computer</div><div class="scoreDetails" style="background: #174075;width:100%;padding-left:5%;font-size:25px;"><div class="scoreDetailsHeadding" style="font-size: 45px;">Score Details</div><div class="scoreDetailsBody" style="font-size: 15px;padding-left: 50px;"><div class="scoreDetailsBody" style="font-size: 15px;padding-left: 130px;"><div style="display: flex;"><h1 style="width:50%;">Player Name</h1><h1 style="width:50%;">Players Score</h1></div><div style="display: flex;"><h2 style="width:50%;">COMPUTER</h2><h2 style="width:50%;">'+computerScore+'</h2></div><div style="display: flex;"><h2 style="width:50%;">'+playerName+'</h2><h2 style="width:50%;">'+playerScore+'</h2></div></div><div class="restartGameButton" ><button onclick="restartGame()" style="margin-bottom: 20px;font-size: 40px;margin-left:300px;">Restart Game</button></div></div></div></div></div>';
+    }
         if(gameTurn=="player")
         unoClick=false;
         document.getElementById("unoButton").style.pointerEvents = 'auto';
     }
     
 }
+function calculateScore(){
+    var count =document.getElementById("computerCardView").childElementCount;
+    for(var i=1;i<=count;i++){
+        computerCurrentCardNumber=document.getElementById("computerCardView").childNodes[i].className.slice(9,11);
+        if(computerCurrentCardNumber.trim()!="p4"){
+        switch(computerCurrentCardNumber.trim()) {
+            case "1":
+                computerScore=computerScore+1;
+                break;
+            case "2":
+                computerScore=computerScore+2;
+                break;
+            case "3":
+            computerScore=computerScore+3;
+                break;
+            case "4":
+            computerScore=computerScore+4;
+                break;
+            case "5":
+            computerScore=computerScore+5;
+                break;
+            case "6":
+            computerScore=computerScore+6;
+                break;
+            case "7":
+            computerScore=computerScore+7;
+                break;
+            case "8":
+            computerScore=computerScore+8;
+                break;
+            case "9":
+            computerScore=computerScore+9;
+                break;
+            case "0":
+            computerScore=computerScore+0;
+                break;
+            case "R":
+            computerScore=computerScore+20;
+                break;
+            case "S":
+            computerScore=computerScore+20;
+                break;
+            case "W":
+            computerScore=computerScore+50;
+                break;
+            case "p2":
+            computerScore=computerScore+20;
+                break;
+        }}else{
+        computerCurrentCardColor=document.getElementById("computerCardView").childNodes[i].className.slice(11,18);
+        if(computerCurrentCardColor.trim()=="black"){
+            computerScore=computerScore+50;
+        }else{
+            computerScore=computerScore+40;
+        }
+        }
+    }
+    var count =document.getElementById("playerCardView").childElementCount;
+    for(var i=1;i<=count;i++){
+        playerCurrentCardNumber=document.getElementById("playerCardView").childNodes[i].className.slice(9,11);
+        if(playerCurrentCardNumber.trim()!="p4"){
+        switch(playerCurrentCardNumber.trim()) {
+            case "1":
+                playerScore=playerScore+1;
+                break;
+            case "2":
+            playerScore=playerScore+2;
+                break;
+            case "3":
+            playerScore=playerScore+3;
+                break;
+            case "4":
+            playerScore=playerScore+4;
+                break;
+            case "5":
+            playerScore=playerScore+5;
+                break;
+            case "6":
+            playerScore=playerScore+6;
+                break;
+            case "7":
+            playerScore=playerScore+7;
+                break;
+            case "8":
+            playerScore=playerScore+8;
+                break;
+            case "9":
+            playerScore=playerScore+9;
+                break;
+            case "0":
+            playerScore=playerScore+0;
+                break;
+            case "R":
+            playerScore=playerScore+20;
+                break;
+            case "S":
+            playerScore=playerScore+20;
+                break;
+            case "W":
+            playerScore=playerScore+50;
+                break;
+            case "p2":
+            playerScore=playerScore+20;
+                break;
+        }}else{
+        playerCurrentCardColor=document.getElementById("playerCardView").childNodes[i].className.slice(11,18);
+        if(playerCurrentCardColor.trim()=="black"){
+            playerScore=playerScore+50;
+        }else{
+            playerScore=playerScore+40;
+        }
+        }
+    }
+}
 function uno(){
     unoClick=true;
+    alert("You Have Said UNO");
 }
 function skipYourTurn(){
     document.getElementById("playerCardView").style.pointerEvents = 'none';
     document.getElementById("SkipYourTurn").style.pointerEvents = 'none';
     gameTurn="computer";
-    computerMove();
+    setTimeout(computerMove,3000);
 
+}
+
+function onTimer() {
+  document.getElementById('mycounter').innerHTML = sec;
+  document.getElementById('mycounter1').innerHTML = min;
+  sec--;
+  if(sec==0&&sec<=0&&min>0){
+sec=60;
+min--
+  }
+  if (sec <=0) {
+      calculateScore();
+      if(playerScore!=0||computerScore!=0){
+      if(playerScore>computerScore){
+        document.getElementById('entryForm').style.display="block";         
+        document.getElementById('gameView').style.display="none";          
+      document.getElementById('entryForm').innerHTML='<div id="entryForm" style="display: block;border-color: transparent;"><div class="entryForm" style=" justify-content: center;border: none;align-items: center; width: 80%;top: 50px;left: 10%;height: 60%;"><div class="headdingWinner" style="width: 100%;height: 25%;font-size: 45px;text-align: center;padding: 15px;background: #174075;color: white;border-top-left-radius: 5px;border-top-right-radius: 5px;"><b>UNO WINNER</b></div><div class="winnerName" style="width: 100%;height: 20%;font-size: 40px;color: white;background: #174075;text-align: center;">'+playerName+'</div><div class="scoreDetails" style="background: #174075;width:100%;padding-left:5%;font-size:25px;"><div class="scoreDetailsHeadding" style="font-size: 45px;">Score Details</div><div class="scoreDetailsBody" style="font-size: 15px;padding-left: 50px;"><div class="scoreDetailsBody" style="font-size: 15px;padding-left: 130px;"><div style="display: flex;"><h1 style="width:50%;">Player Name</h1><h1 style="width:50%;">Players Score</h1></div><div style="display: flex;"><h2 style="width:50%;">COMPUTER</h2><h2 style="width:50%;">'+computerScore+'</h2></div><div style="display: flex;"><h2 style="width:50%;">'+playerName+'</h2><h2 style="width:50%;">'+playerScore+'</h2></div></div><div class="restartGameButton" ><button onclick="restartGame()" style="margin-bottom: 20px;font-size: 40px;margin-left:300px;">Restart Game</button></div></div></div></div></div>';
+      }else if(playerScore<computerScore){
+        document.getElementById('entryForm').style.display="block";         
+        document.getElementById('gameView').style.display="none";     
+      document.getElementById('entryForm').innerHTML='<div id="entryForm" style="display: block;border-color: transparent;"><div class="entryForm" style=" justify-content: center;border: none;align-items: center; width: 80%;top: 50px;left: 10%;height: 60%;"><div class="headdingWinner" style="width: 100%;height: 25%;font-size: 45px;text-align: center;padding: 15px;background: #174075;color: white;border-top-left-radius: 5px;border-top-right-radius: 5px;"><b>UNO WINNER</b></div><div class="winnerName" style="width: 100%;height: 20%;font-size: 40px;color: white;background: #174075;text-align: center;">Computer</div><div class="scoreDetails" style="background: #174075;width:100%;padding-left:5%;font-size:25px;"><div class="scoreDetailsHeadding" style="font-size: 45px;">Score Details</div><div class="scoreDetailsBody" style="font-size: 15px;padding-left: 50px;"><div class="scoreDetailsBody" style="font-size: 15px;padding-left: 130px;"><div style="display: flex;"><h1 style="width:50%;">Player Name</h1><h1 style="width:50%;">Players Score</h1></div><div style="display: flex;"><h2 style="width:50%;">COMPUTER</h2><h2 style="width:50%;">'+computerScore+'</h2></div><div style="display: flex;"><h2 style="width:50%;">'+playerName+'</h2><h2 style="width:50%;">'+playerScore+'</h2></div></div><div class="restartGameButton" ><button onclick="restartGame()" style="margin-bottom: 20px;font-size: 40px;margin-left:300px;">Restart Game</button></div></div></div></div></div>';
+      }else if(playerScore==computerScore){
+        document.getElementById('entryForm').style.display="block";         
+        document.getElementById('gameView').style.display="none";     
+      document.getElementById('entryForm').innerHTML='<div id="entryForm" style="display: block;border-color: transparent;"><div class="entryForm" style=" justify-content: center;border: none;align-items: center; width: 80%;top: 50px;left: 10%;height: 60%;"><div class="headdingWinner" style="width: 100%;height: 25%;font-size: 45px;text-align: center;padding: 15px;background: #174075;color: white;border-top-left-radius: 5px;border-top-right-radius: 5px;"><b>UNO WINNER</b></div><div class="winnerName" style="width: 100%;height: 20%;font-size: 40px;color: white;background: #174075;text-align: center;">DRAW</div><div class="scoreDetails" style="background: #174075;width:100%;padding-left:5%;font-size:25px;"><div class="scoreDetailsHeadding" style="font-size: 45px;">Score Details</div><div class="scoreDetailsBody" style="font-size: 15px;padding-left: 50px;"><div class="scoreDetailsBody" style="font-size: 15px;padding-left: 130px;"><div style="display: flex;"><h1 style="width:50%;">Player Name</h1><h1 style="width:50%;">Players Score</h1></div><div style="display: flex;"><h2 style="width:50%;">COMPUTER</h2><h2 style="width:50%;">'+computerScore+'</h2></div><div style="display: flex;"><h2 style="width:50%;">'+playerName+'</h2><h2 style="width:50%;">'+playerScore+'</h2></div></div><div class="restartGameButton" ><button onclick="restartGame()" style="margin-bottom: 20px;font-size: 40px;margin-left:300px;">Restart Game</button></div></div></div></div></div>';
+      }
+    }
+  }
+  else {
+    setTimeout(onTimer, 1000);
+  }
+}
+function restartGame(){
+    window.location.reload()
+    document.getElementById("entryForm").innerHTML='<div class="entryForm" ><input type="text" placeholder="Enter Your Name" id="playerName"><button onclick="startGame()">Start Game</button></div>';
+    document.getElementById('entryForm').style.display="block";         
+        document.getElementById('gameView').style.display="none";     
+        document.getElementById('playerCardView').innerHTML="";
+        document.getElementById('computerCardView').innerHTML="";
+        playerCardCount=0;
+computerCardCount=0;
+computerCardDraw="";
+currentOpenCardNumber="";
+currentOpenCardColor="";
+changedColor="";
+gameTurn="player";
+wIndex="";
+playerName="";
+drawnCard="";
+computerScore=0;
+playerScore=0;
+unoClick=false;
+sec = 60;
+min =1;
 }
 function changeDrawColor(){
     var e = document.getElementById("colorSelected");
@@ -246,7 +417,7 @@ function changeDrawColor(){
 }else{
     gameTurn="computer";
     document.getElementById("playerCardView").style.pointerEvents = 'none';
-computerMove();
+    setTimeout(computerMove,3000);
 }
 }
 wIndex="";

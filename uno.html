@@ -3,16 +3,17 @@
 <link href="uno.css" rel="stylesheet">
 <script src="uno.js"></script>
 </head>
-<body onload="execute()">
+<body>
     <div class="unoBoard">
 
 	<div class="box game-details-box" style="Width:100%;">
 	<div class="box-top" style="Width:100%;">
                         <h4>UNO</h4>
+                        <h4 style="float: right;position: relative;top: -16px;" ><a href="#rules">RULES</a></h4>
                     </div>
                     <div id="entryForm">
                     <div class="entryForm" >
-                      <input type="text" placeholder="Enter Your Name" id="playerName">
+                      <input type="text" placeholder="Enter Your Name" id="playerName" required>
                       <button onclick="startGame()">Start Game</button>
 
                     </div></div>
@@ -32,6 +33,9 @@
         </span>
       </div>
     </div>
+    <div id="mycounter"style="    position: absolute;    right: 30px;    top: 70px;    font-size: 40px;"></div> 
+    <div id="mycounter"style="    position: absolute;    right: 75px;    top: 70px;    font-size: 40px;">:</div> 
+    <div id="mycounter1"style="    position: absolute;    right: 85px;    top: 70px;    font-size: 40px;"></div>
     <button id="SkipYourTurn" style="position: relative;right: -90px;top: -170px;padding: 5px;" onclick="skipYourTurn()" >Skip Your Turn</button> 
     <div id="unoButton"class="card blue" onclick="drawCard('playerCardView')" style="float: right;font-size: 30px;height: 20%;    margin-top: -90px;">
         <span class="inner" >
@@ -74,7 +78,7 @@ P.S. UNO is a registered trademark by Mattel Inc.. Don't forget to buy the physi
                             </div>
                         </div>
                          <hr>
-                        <div class="row">
+                        <div id="rules" class="row">
                             <div class="col-md-10">
 							<p><strong><span style="font-size:19px;">RULES</span></strong><br><br>
 <strong><span style="font-size:17px;">Setup:</span></strong> The game is for 2-10 players, ages 7 and over. Every player starts with seven cards, and they are dealt face down. The rest of the cards are placed in a Draw Pile face down. Next to the pile a space should be designated for a Discard Pile. The top card should be placed in the Discard Pile, and the game begins!<br><br>
